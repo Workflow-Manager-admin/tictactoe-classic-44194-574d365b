@@ -18,7 +18,7 @@
         v-for="(cell, idx) in cells"
         :key="idx"
         class="cell"
-        :disabled="!!cell || winner || isDraw"
+        :disabled="Boolean(cell) || !!winner || isDraw"
         @click="handleCellClick(idx)"
         :aria-label="getCellAria(idx)"
       >
