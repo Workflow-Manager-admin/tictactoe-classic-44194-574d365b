@@ -37,13 +37,13 @@ import { ref, computed } from "vue";
 
 const accentColor = "#0074D9";
 
-const cells = ref(Array(9).fill(""));
-const currentPlayer = ref("X");
-const winner = ref(null);
+const cells = ref<string[]>(Array(9).fill(""));
+const currentPlayer = ref<"X" | "O">("X");
+const winner = ref<string | null>(null);
 const isDraw = ref(false);
 
 // PUBLIC_INTERFACE
-function handleCellClick(idx) {
+function handleCellClick(idx: number): void {
   if (!cells.value[idx] && !winner.value && !isDraw.value) {
     cells.value[idx] = currentPlayer.value;
     if (checkWin(currentPlayer.value)) {
@@ -57,19 +57,19 @@ function handleCellClick(idx) {
 }
 
 // PUBLIC_INTERFACE
-function checkWin(player) {
+function checkWin(player: string): boolean {
   const wins = [
     [0,1,2], [3,4,5], [6,7,8], // rows
     [0,3,6], [1,4,7], [2,5,8], // cols
     [0,4,8], [2,4,6] // diags
   ];
   return wins.some((line) =>
-    line.every(idx => cells.value[idx] === player)
+    line.every((idx: number) => cells.value[idx] === player)
   );
 }
 
 // PUBLIC_INTERFACE
-function resetGame() {
+function resetGame(): void {
   cells.value = Array(9).fill("");
   currentPlayer.value = "X";
   winner.value = null;
@@ -81,7 +81,7 @@ const currentPlayerName = computed(() => currentPlayer.value === "X" ? "Player 1
 const currentPlayerSymbol = computed(() => currentPlayer.value);
 
 // PUBLIC_INTERFACE
-function getCellAria(idx) {
+function getCellAria(idx: number): string {
   return cells.value[idx]
     ? `Cell ${idx + 1}: ${cells.value[idx]}`
     : `Cell ${idx + 1}: empty, ${currentPlayerName.value}'s turn`;
