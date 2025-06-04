@@ -31,12 +31,10 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 // PUBLIC_INTERFACE
 import { ref, computed } from "vue";
 
-const primaryColor = "#ffffff";
-const secondaryColor = "#222222";
 const accentColor = "#0074D9";
 
 const cells = ref(Array(9).fill(""));
